@@ -1,11 +1,13 @@
 <?php
+
 namespace Dekasender\HttpClient;
 
-interface HttpClient {
+interface HttpClient
+{
   public function get(
     string $url,
     array $headers,
-    array $params
+    array $params = null
   );
 
   public function post(
@@ -33,5 +35,4 @@ interface HttpClient {
     string $url,
     array $headers
   );
-
 }

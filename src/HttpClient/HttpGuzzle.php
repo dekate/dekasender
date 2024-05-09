@@ -15,9 +15,15 @@ class HttpGuzzle implements HttpClient
     $this->client = new Client();
   }
 
-  public function get(string $url, array $headers, array $queries)
+  public function get(string $url, array $headers, array $queries = null)
   {
-    return $this->client->request('GET', $url, ['headers' => $headers, 'query' => $queries]);
+    $params = ['headers' => $headers];
+    if ($queries) {
+      $params['query'] = $queries;
+    }
+    $response = $this->client->request('GET', $url, $params);
+
+    return $this->toCustomResponse($response);
   }
 
   public function post(string $url, array $headers, array $body, string $formType = 'json')

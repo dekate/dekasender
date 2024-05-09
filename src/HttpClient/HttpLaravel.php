@@ -8,9 +8,10 @@ use Illuminate\Http\Client\Response as LaravelResponse;
 
 class HttpLaravel implements HttpClient
 {
-  public function get(string $url, array $headers, array $queries)
+  public function get(string $url, array $headers, array $queries = null)
   {
-    return Http::withHeaders($headers)->get($url, $queries);
+    $response = Http::withHeaders($headers)->get($url, $queries);
+    return $this->toCustomResponse($response);
   }
 
   public function post(string $url, array $headers, array $body, string $formType = 'json')

@@ -48,7 +48,7 @@ class Email
   {
     return $this->httpClient->post(
       "$this->baseUrl/send",
-      ['Api-key' => $this->apiKey, 'Content-Type' => 'application/json'],
+      ['Api-key' => $this->apiKey],
       [
         'contact' => $data
       ]
@@ -72,5 +72,15 @@ class Email
       "reply_to_email" => $replyTo
     ];
     return $this->post($content);
+  }
+
+  public function log($uid)
+  {
+    $url = str_replace('/email', '', $this->baseUrl);
+    $data = $this->httpClient->get(
+      "$url/get/email/$uid",
+      ['Api-key' => $this->apiKey]
+    );
+    return $data;
   }
 }

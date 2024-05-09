@@ -114,4 +114,14 @@ class Whatsapp
   {
     return $this->sendFile($receiver, $documentUrl, "document", $caption);
   }
+
+  public function log($uid)
+  {
+    $url = str_replace('/whatsapp', '', $this->baseUrl);
+    $data = $this->httpClient->get(
+      "$url/get/whatsapp/$uid",
+      ['Api-key' => $this->apiKey]
+    );
+    return $data;
+  }
 }

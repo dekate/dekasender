@@ -4,7 +4,7 @@ namespace Dekasender\HttpClient;
 
 class HttpCurl implements HttpClient
 {
-  public function get(string $url, array $headers, array $params)
+  public function get(string $url, array $headers, array $params = null)
   {
     return $this->sendData('GET', $url, $headers, $params);
   }
@@ -76,6 +76,7 @@ class HttpCurl implements HttpClient
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_HTTPHEADER, $tHeaders);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HEADER, 1);
 
     $result = curl_exec($curl);
 

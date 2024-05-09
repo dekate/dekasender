@@ -48,7 +48,7 @@ class Sms
   {
     return $this->httpClient->post(
       "$this->baseUrl/send",
-      ['Api-key' => $this->apiKey, 'Content-Type' => 'application/json'],
+      ['Api-key' => $this->apiKey],
       [
         'contact' => $data
       ]
@@ -72,5 +72,15 @@ class Sms
       "sms_type" => $isUnicode ? 'unicode' : 'plain',
     ];
     return $this->post($content);
+  }
+
+  public function log($uid)
+  {
+    $url = str_replace('/sms', '', $this->baseUrl);
+    $data = $this->httpClient->get(
+      "$url/get/sms/$uid",
+      ['Api-key' => $this->apiKey]
+    );
+    return $data;
   }
 }
